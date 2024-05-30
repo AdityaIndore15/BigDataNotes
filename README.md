@@ -1,0 +1,2 @@
+# BigDataNotes
+Hadoop | Hive 
