@@ -1,2 +1,2 @@
 # BigDataNotes
-Hadoop | Hive 
+Hadoop | Hive | PySpark | MapReduce | Kafka
