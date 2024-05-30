@@ -1,0 +1,14 @@
+find the highest revenue year wise
+-----------------------------------
+
+nyseRDD = sc.textFile("training/NYSE.csv",1)
+
+KVRdd = nyseRDD.map(lambda a : (a.split(",")[1], int(a.split(",")[7])))
+
+YrWiseTotal = KVRdd.reduceByKey(lambda a,b : a + b)
+
+sortbyval = YrWiseTotal.sortBy(lambda a : -a[1])
+ 
+sortbyval.saveAsTextFile("training/nyseVol") 
+
+ 

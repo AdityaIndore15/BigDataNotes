@@ -1,0 +1,10 @@
+from pyspark import SparkContext, SparkConf
+conf = SparkConf()
+sc = SparkContext(conf=conf)
+dataRDD = sc.textFile("data")
+dataRDD1 = dataRDD.coalesce(1)
+mapRDD = dataRDD1.flatMap(lambda a : a.split(' '))
+keybyword2 = mapRDD.map(lambda word : (word,1))
+counts = keybyword2.reduceByKey(lambda a,b : a+b).sortByKey()
+counts.saveAsTextFile("temp1/pyspark-py")
+sc.stop()

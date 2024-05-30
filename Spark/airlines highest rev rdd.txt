@@ -1,0 +1,24 @@
+find the highest revenue year wise
+-----------------------------------
+
+airlinesRDD = sc.textFile("training/airlines.csv",1)
+
+header = airlinesRDD.first()
+
+final_data = airlinesRDD.filter(lambda a : a != header)
+
+KVRdd = final_data.map(lambda a : (a.split(",")[0], (float(a.split(",")[2])*int(a.split(",")[3]))))
+
+YrQtrRDD = final_data.map(lambda a : ((a.split(",")[0] + "," + a.split(",")[1]), (float(a.split(",")[2])*int(a.split(",")[3]))))
+
+YrWiseTotal = KVRdd.reduceByKey(lambda a,b : a + b)
+
+sortbyval = YrWiseTotal.sortBy(lambda a : -a[1])
+ 
+sortbyval.saveAsTextFile("training/airlinesRev") 
+
+-------------------------------------------------------------
+
+sortbyYrQtr = YrQtrRDD.sortBy(lambda a : -a[1])
+
+ 

@@ -1,0 +1,22 @@
+open a new terminal for creating a topic and for producer
+---------------------------------------------------------
+cd /opt/cloudera/parcels/CDH/lib/kafka/bin 
+
+create a topic
+---------------
+./kafka-topics.sh --create --zookeeper ip-10-1-1-204.ap-south-1.compute.internal:2181 --replication-factor 1 --partitions 1 --topic cdac_sandeep2
+
+list the topics
+---------------
+./kafka-topics.sh --list --zookeeper ip-10-1-1-204.ap-south-1.compute.internal:2181 
+
+producer console
+-----------------
+./kafka-console-producer.sh --topic cdac_sandeep2 --broker-list ip-10-1-1-204.ap-south-1.compute.internal:9092
+
+
+open a new terminal for consumer
+--------------------------------
+cd /opt/cloudera/parcels/CDH/lib/kafka/bin 
+
+./kafka-console-consumer.sh --bootstrap-server ip-10-1-1-204.ap-south-1.compute.internal:9092 --topic cdac_sandeep2 --from-beginning 

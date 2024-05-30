@@ -1,0 +1,25 @@
+SET hive.support.concurrency=true;
+SET hive.txn.manager=org.apache.hadoop.hive.ql.lockmgr.DbTxnManager;
+SET hive.enforce.bucketing=true;
+SET hive.exec.dynamic.partition.mode=nostrict;
+SET hive.compactor.initiator.on=true;
+SET hive.compactor.worker.threads=1;
+
+CREATE TABLE employee (
+ id int,
+ name string,
+ age int,
+ gender string)
+ clustered by (id) into 2 buckets
+ STORED AS ORC
+ TBLPROPERTIES ('transactional'='true');
+
+INSERT INTO employee VALUES(1,'James',30,'M'), (2,'Ann',40,'F'), (3,'Jeff',41,'M'), (4,'Jennifer',20,'F') ;
+
+UPDATE employee 
+SET age=35 
+WHERE id=1;
+
+DELETE FROM employee
+WHERE id=2;
+

@@ -1,0 +1,7 @@
+create table topSellingProd(
+prod_name string,
+total double)
+row format delimited
+fields terminated by ','
+stored as textfile
+location '/user/cdanovbdh0344/training/pyspark6';

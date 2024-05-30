@@ -1,0 +1,10 @@
+from pyspark import SparkContext, SparkConf
+conf = SparkConf()
+sc = SparkContext(conf=conf)
+txnRDD = sc.textFile("sales/txns1.txt",1)
+txnKVRDD = txnRDD.map(lambda row : (row.split(',')[5], float(row.split(',')[3])))
+spendbyProd = txnKVRDD.reduceByKey(lambda a,b : a+b)
+sortbyval = spendbyProd.sortBy(lambda a : -a[1])
+sortbyval2 = sortbyval.map(lambda a : a[0] + "," + str(round(a[1],2)))
+sortbyval2.saveAsTextFile("training/pyspark6")
+sc.stop()
